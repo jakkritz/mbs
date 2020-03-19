@@ -1,0 +1,71 @@
+version: '3'
+
+services:
+  # Backend Web Server
+  web_server:
+    build: ./erawan_docker/nginx/
+    container_name: ${APP_NAME}_web_server
+    labels:
+    - "traefik.enable=true"
+    - "traefik.backend=web"
+    - "traefik.frontend.rule=Host:line.erawancms.com"
+    - "traefik.port=8000"
+    - "traefik.docker.network=traefik_proxy"
+    - "traefik.frontend.passHostHeader=true"
+    working_dir: /var/www/app
+    volumes:
+    - .:/var/www/app
+    - ./erawan_docker/nginx/site/mbs.web.conf:/etc/nginx/conf.d/mbs.web.conf:ro
+    depends_on:
+    - app
+    networks:
+    - traefik_proxy
+
+  # Application
+  app:
+    build:
+      context: .
+      dockerfile: ./erawan_docker/php/Dockerfile
+    container_name: ${APP_NAME}_app
+    environment:
+      APP_ENV: local
+      DB_HOST: erawandb
+      DB_USERNAME: mbs
+      DB_PASSWORD: erawandb123
+      DB_DATABASE: mbs_web
+    labels:
+    - "traefik.enable=false"
+    volumes:
+    - .:/var/www/app
+    - ./erawan_docker/php/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini:ro
+    depends_on:
+    - erawandb
+    networks:
+    - default
+    - traefik_proxy
+
+  # Database
+  erawandb:
+    image: mysql:5.7
+    container_name: ${APP_NAME}_mysql
+    labels:
+    - "traefik.enable=false"
+    ports:
+    - "33061:3306"
+    environment:
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: erawandb123
+      MYSQL_DATABASE: ${DB_DATABASE}
+    volumes:
+    - erawandb_data:/var/lib/mysql
+    networks:
+    - default
+
+networks:
+  default:
+  traefik_proxy:
+    external: true
+
+volumes:
+  erawandb_data:

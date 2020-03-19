@@ -81,10 +81,10 @@
 
 <footer class="footer mt-auto py-3 bg-light">
     <div class="container">
-        <a target="_blank" href="https://github.com/rph-dev/mbs">RPH Linetify</a>
-        <span>© 2019 RPH.</span><br>
+        <a target="_self" href="https://erawancms.com">Erawan Line Messaging System</a>
+        <span>© 2020.</span><br>
         <span>Powered by</span>
-        <a target="_blank" href="http://rph.co.th">RPH</a>
+        <a target="_blank" href="https://ppsmartproduct.com">PPSmartProduct Co., Ltd.</a>
     </div>
 </footer>
 
