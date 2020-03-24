@@ -13,9 +13,9 @@ class UsersTableSeeder extends Seeder
     {
         if(!DB::table('users')->count()){
             DB::table('users')->insert([
-                'name' => 'demo',
-                'email' => 'demo@email.com',
-                'password' => bcrypt('demo'),
+                'name' => 'admin',
+                'email' => 'admin@erawancms.com',
+                'password' => bcrypt('erawan'),
                 'department_id' => 5,
                 'position_id' => 4,
                 'activated' => 1,
