@@ -285,7 +285,7 @@ class LineBotController extends Controller
         }
 
         if($profile['birth_date'] === $birthDay || $fakeUser) {
-            $msg[] = "✅ คุณเชื่อมต่อระบบ Message Broadcast System (MBS) สำเร็จแล้ว! 😀 🎉";
+            $msg[] = "✅ คุณเชื่อมต่อระบบ Erawan CMS สำเร็จแล้ว! 😀 🎉";
 
             if(!$fakeUser){
                 // mapping user
@@ -313,7 +313,7 @@ class LineBotController extends Controller
         $fakeUser = $this->lineState['user']['password'] === "1a1a1a";
 
         if($userCustom['id'] || $fakeUser){
-            $msg[] = "✅ คุณเชื่อมต่อระบบ Message Broadcast System (MBS) สำเร็จแล้ว! 😀 🎉";
+            $msg[] = "✅ คุณเชื่อมต่อระบบ Erawan CMS สำเร็จแล้ว! 😀 🎉";
             // mapping user
             if(!$fakeUser){
                 UserMapping::where('line_id', $this->lineUserId)->update(['user_custom' => $userCustom['id']]);
